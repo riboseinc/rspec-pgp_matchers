@@ -6,12 +6,11 @@ require "rspec/pgp_matchers/version"
 Gem::Specification.new do |spec|
   spec.name          = "rspec-pgp_matchers"
   spec.version       = Rspec::PgpMatchers::VERSION
-  spec.authors       = ["Sebastian Skałacki"]
-  spec.email         = ["skalee@gmail.com"]
+  spec.authors       = ["Ribose Inc."]
+  spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "RSpec matchers for testing OpenPGP messages"
+  spec.homepage      = "https://github.com/riboseinc/rspec-pgp_matchers"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.
