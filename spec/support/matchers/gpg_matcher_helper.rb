@@ -2,6 +2,7 @@
 #
 
 require "open3"
+require "tempfile"
 
 module GpgMatcherHelper
   def detect_signers(stderr_str)
