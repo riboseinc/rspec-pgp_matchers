@@ -18,7 +18,7 @@
 # outside the validator.  A previous implementation of this matcher may provide
 # some useful ideas.  See commit 2e2bd0da090d7d31ecacc2d1ea6bd3e13479e675.
 RSpec::Matchers.define :be_a_pgp_encrypted_message do
-  include GpgMatcherHelper
+  include RSpec::PGPMatchers::GpgMatcherHelper
 
   attr_reader :err, :expected_recipients
 
