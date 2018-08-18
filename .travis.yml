@@ -51,7 +51,7 @@ before_install:
     --configure-opts "${GPG_CONFIGURE_OPTS}"
     --folding-style travis
   - popd
-  - gem install bundler -v 1.16.2
+  - gem install bundler -v "~> 1.16"
 
 after_install:
   - bundle update
