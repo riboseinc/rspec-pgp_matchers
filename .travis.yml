@@ -7,3 +7,7 @@ rvm:
 
 before_install:
   - gem install bundler -v 1.16.2
+
+before_script:
+  - bundle exec rake pgp_keys:generate
+  - bundle exec rake pgp_keys:list
