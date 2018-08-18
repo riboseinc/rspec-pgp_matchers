@@ -3,7 +3,10 @@ language: ruby
 sudo: true
 
 rvm:
+  - "2.3"
+  - "2.4"
   - "2.5"
+  - "ruby-head"
 
 env:
   matrix:
@@ -53,3 +56,7 @@ before_install:
 before_script:
   - bundle exec rake pgp_keys:generate
   - bundle exec rake pgp_keys:list
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
