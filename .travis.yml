@@ -34,6 +34,11 @@ env:
       --with-ksba-prefix=${GPG_PREFIX}
       --with-npth-prefix=${GPG_PREFIX}"
 
+cache:
+  bundler: true
+  directories:
+    - opt
+
 before_install:
   - mkdir -p ${DEPS_PREFIX}
   - pushd ci
