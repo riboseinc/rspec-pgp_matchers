@@ -38,8 +38,8 @@ module RSpec
         end
       end
 
-      # Checks if signature is valid.  If `expected_signer` is not `nil`, then it
-      # additionally checks if the signature was issued by expected signer.
+      # Checks if signature is valid.  If `expected_signer` is not `nil`, then
+      # it additionally checks if the signature was issued by expected signer.
       def match_signature(signature)
         if !signature[:ok]
           msg_mismatch(text)
