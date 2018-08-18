@@ -6,6 +6,8 @@ Feature: be_a_valid_pgp_signature_of matcher
   Scenario: Testing if signature has been issued for given text
     Given a file named "matcher_spec.rb" with:
       """ruby
+      require "rspec/pgp_matchers"
+
       describe File.read("signature") do
         let(:beard) { File.read "beard.txt" }
         let(:nice) { File.read "nice.txt" }
