@@ -7,7 +7,7 @@ require "rspec/pgp_matchers/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rspec-pgp_matchers"
-  spec.version       = Rspec::PgpMatchers::VERSION
+  spec.version       = RSpec::PGPMatchers::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 

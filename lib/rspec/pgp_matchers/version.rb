@@ -1,8 +1,8 @@
 # (c) Copyright 2018 Ribose Inc.
 #
 
-module Rspec
-  module PgpMatchers
+module RSpec
+  module PGPMatchers
     VERSION = "0.1.0".freeze
   end
 end

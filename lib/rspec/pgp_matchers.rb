@@ -3,8 +3,8 @@
 
 require "rspec/pgp_matchers/version"
 
-module Rspec
-  module PgpMatchers
+module RSpec
+  module PGPMatchers
     # Your code goes here...
   end
 end
