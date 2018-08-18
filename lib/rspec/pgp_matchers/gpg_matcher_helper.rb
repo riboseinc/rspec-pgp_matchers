@@ -6,7 +6,7 @@ require "tempfile"
 
 module RSpec
   module PGPMatchers
-    module GpgMatcherHelper
+    module GPGMatcherHelper
       def detect_signers(stderr_str)
         rx = /(?<ok>Good|BAD) signature from .*\<(?<email>[^>]+)\>/
 
