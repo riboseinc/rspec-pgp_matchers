@@ -1,4 +1,4 @@
-= Rspec::PgpMatchers
+= RSpec::PGPMatchers
 
 image:https://img.shields.io/gem/v/rspec-pgp_matchers.svg[
 	Gem Version, link="https://rubygems.org/gems/rspec-pgp_matchers"]
@@ -9,37 +9,72 @@ image:https://img.shields.io/codecov/c/github/riboseinc/rspec-pgp_matchers.svg[
 image:https://img.shields.io/codeclimate/maintainability/riboseinc/rspec-pgp_matchers.svg[
 	"Code Climate", link="https://codeclimate.com/github/riboseinc/rspec-pgp_matchers"]
 
-Welcome to your new gem! In this directory, you’ll find the files you
-need to be able to package up your Ruby library into a gem. Put your
-Ruby code in the file `lib/rspec/pgp_matchers`. To experiment with that
-code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-== Installation
-
-Add this line to your application’s Gemfile:
-
-[source,ruby]
-----
-gem 'rspec-pgp_matchers'
-----
-
-And then execute:
-
-....
-$ bundle
-....
-
-Or install it yourself as:
-
-....
-$ gem install rspec-pgp_matchers
-....
+RSpec matchers for testing PGP-encrypted messages, and signatures.
 
 == Usage
 
-TODO: Write usage instructions here
+=== Getting started
+
+1. Make sure that you have GnuPG 2.2 installed.
+
+2. Add this line to your application’s Gemfile:
++
+[source,ruby]
+----
+gem "rspec-pgp_matchers", github: "riboseinc/rspec-pgp_matchers", require: false, group: :test
+----
+
+3. And following to your spec helper:
++
+[source,ruby]
+----
+require "rspec/pgp_matchers"
+TMP_PGP_HOME = "path/to/pgp_home_directory/containing/development/keys"
+----
+
+=== Matching signatures
+
+[source,ruby]
+----
+text = "Some text"
+signer_uid = "mail@example.com"
+someones_uid = "someone@example.com"
+
+# Not defined in this gem, but required for this example
+signature = sign_text(text: text, signer: signer_uid, ascii_armor: true)
+
+# Both following do pass
+expect(signature).to be_a_valid_pgp_signature_of(text)
+expect(signature).to be_a_valid_pgp_signature_of(text).signed_by(signer_uid)
+
+# This one fails
+expect(signature).to be_a_valid_pgp_signature_of(text).signed_by(someones_uid)
+----
+
+=== Matching encrypted messages
+
+[source,ruby]
+----
+text = "Some text"
+recipient1_uid = "mail1@example.com"
+recipient2_uid = "mail2@example.com"
+someones_uid = "someone@example.com"
+
+# Not defined in this gem, but required for this example
+encrypted = encrypt_text(
+  text: text,
+  recipients: [recipient1_uid, recipient2_uid],
+  ascii_armor: true
+)
+
+# Following do pass
+expect(encrypted).to be_a_pgp_encrypted_message
+expect(encrypted).to be_a_pgp_encrypted_message.containing(text)
+expect(encrypted).to be_a_pgp_encrypted_message.encrypted_for(recipient1_uid, recipient2_uid)
+
+# This one fails
+expect(encrypted).to be_a_pgp_encrypted_message.encrypted_for(someones_uid)
+----
 
 == Development
 
@@ -56,7 +91,7 @@ push the `.gem` file to https://rubygems.org[rubygems.org].
 == Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/[USERNAME]/rspec-pgp_matchers.
+https://github.com/riboseinc/rspec-pgp_matchers.
 
 == Credits
 
