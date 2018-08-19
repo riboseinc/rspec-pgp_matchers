@@ -11,6 +11,16 @@ image:https://img.shields.io/codeclimate/maintainability/riboseinc/rspec-pgp_mat
 
 RSpec matchers for testing PGP-encrypted messages, and signatures.
 
+IMPORTANT: This gem calls GnuPG executables internally.  However, it does not
+rely on machine-readable interface yet, and may easily break when they change
+something in GnuPG's human-readable output. As long as it is not resolved in
+a better way, we are going to maintain compatibility with the most recent
+versions of GnuPG.  At the moment of writing this statement, it is GnuPG 2.2.9.
+
+TIP: In order to check which GnuPG version this gem was tested against,
+check out builds in Travis.  One of the build steps in a "before script" phase
+executes `gpg --version` to make things clear.
+
 == Usage
 
 === Getting started
