@@ -11,6 +11,10 @@ AllCops:
   DisplayCopNames: false
   StyleGuideCopsOnly: false
   TargetRubyVersion: 2.3
+  Exclude:
+    - bin/bundle
+    - bin/rake
+    - bin/rspec
 Rails:
   Enabled: false
 
