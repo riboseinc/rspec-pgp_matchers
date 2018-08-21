@@ -64,5 +64,14 @@ before_script:
   - bundle exec rake pgp_keys:list
 
 matrix:
+  include:
+    - gemfile: ci/gemfiles/rspec-3.7.gemfile
+      rvm: 2.5
+    - gemfile: ci/gemfiles/rspec-3.6.gemfile
+      rvm: 2.5
+    - gemfile: ci/gemfiles/rspec-3.5.gemfile
+      rvm: 2.5
+    - gemfile: ci/gemfiles/rspec-3.4.gemfile
+      rvm: 2.5
   allow_failures:
     - rvm: ruby-head
