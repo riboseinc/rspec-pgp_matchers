@@ -8,6 +8,9 @@ require "rspec/pgp_matchers/be_a_valid_pgp_signature_of"
 
 module RSpec
   module PGPMatchers
+    class << self
+      attr_accessor :homedir
+    end
     # Your code goes here...
   end
 end
