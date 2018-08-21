@@ -16,7 +16,10 @@
 # in a separate process may leverage GPGME, as it won't be exposed outside
 # the validator.  A previous implementation of this matcher may provide some
 # useful ideas.  See commit 2e2bd0da090d7d31ecacc2d1ea6bd3e13479e675.
+#
+# rubocop:disable Metrics/BlockLength
 RSpec::Matchers.define :be_a_valid_pgp_signature_of do |text|
+  # rubocop:enable Metrics/BlockLength
   include RSpec::PGPMatchers::GPGMatcherHelper
 
   attr_reader :err
