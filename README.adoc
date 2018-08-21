@@ -39,7 +39,7 @@ gem "rspec-pgp_matchers", github: "riboseinc/rspec-pgp_matchers", require: false
 [source,ruby]
 ----
 require "rspec/pgp_matchers"
-TMP_PGP_HOME = "path/to/pgp_home_directory/containing/development/keys"
+RSpec::PGPMatchers.homedir = "path/to/pgp_home_directory/with/development/keys"
 ----
 
 === Matching signatures
