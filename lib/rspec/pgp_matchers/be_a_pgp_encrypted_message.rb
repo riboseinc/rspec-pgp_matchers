@@ -43,7 +43,7 @@ RSpec::Matchers.define :be_a_pgp_encrypted_message do
 
   # Returns +nil+ if signature is valid, or an error message otherwise.
   def validate_encrypted_message(encrypted_string)
-    cmd_output = run_gpg_decrypt(encrypted_string)
+    cmd_output = run_decrypt(encrypted_string)
     cmd_result = analyse_decrypt_output(*cmd_output)
 
     if cmd_result[:well_formed_pgp_data]
@@ -51,12 +51,6 @@ RSpec::Matchers.define :be_a_pgp_encrypted_message do
     else
       msg_no_pgg_data(encrypted_string)
     end
-  end
-
-  def run_gpg_decrypt(encrypted_string)
-    enc_file = make_tempfile_containing(encrypted_string)
-    cmd = gpg_decrypt_command(enc_file)
-    run_command(cmd)
   end
 
   def analyse_decrypt_output(stdout_str, stderr_str, status)
@@ -74,11 +68,6 @@ RSpec::Matchers.define :be_a_pgp_encrypted_message do
       (expected_recipients && match_recipients(recipients)),
       (expected_signer && match_signature(signature)),
     ].detect { |x| x }
-  end
-
-  def gpg_decrypt_command(enc_file)
-    enc_path = Shellwords.escape(enc_file.path)
-    "--decrypt #{enc_path}"
   end
 
   def msg_mismatch(text)
