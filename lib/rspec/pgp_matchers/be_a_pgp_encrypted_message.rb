@@ -77,15 +77,8 @@ RSpec::Matchers.define :be_a_pgp_encrypted_message do
   end
 
   def gpg_decrypt_command(enc_file)
-    homedir_path = Shellwords.escape(RSpec::PGPMatchers.homedir)
     enc_path = Shellwords.escape(enc_file.path)
-
-    <<~SH
-      gpg \
-      --homedir #{homedir_path} \
-      --no-permission-warning \
-      --decrypt #{enc_path}
-    SH
+    "--decrypt #{enc_path}"
   end
 
   def msg_mismatch(text)

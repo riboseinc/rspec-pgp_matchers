@@ -54,9 +54,17 @@ module RSpec
         tempfile.flush
       end
 
-      def run_command(cmd)
+      def run_command(gpg_cmd)
         env = { "LC_ALL" => "C" } # Gettext English locale
-        Open3.capture3(env, cmd)
+
+        homedir_path = Shellwords.escape(RSpec::PGPMatchers.homedir)
+
+        Open3.capture3(env, <<~SH)
+          gpg \
+          --homedir #{homedir_path} \
+          --no-permission-warning \
+          #{gpg_cmd}
+        SH
       end
     end
   end

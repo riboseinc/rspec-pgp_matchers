@@ -66,16 +66,9 @@ RSpec::Matchers.define :be_a_valid_pgp_signature_of do |text|
   end
 
   def gpg_verify_command(sig_file, data_file)
-    homedir_path = Shellwords.escape(RSpec::PGPMatchers.homedir)
     sig_path = Shellwords.escape(sig_file.path)
     data_path = Shellwords.escape(data_file.path)
-
-    <<~SH
-      gpg \
-      --homedir #{homedir_path} \
-      --no-permission-warning \
-      --verify #{sig_path} #{data_path}
-    SH
+    "--verify #{sig_path} #{data_path}"
   end
 
   def msg_mismatch(text)
