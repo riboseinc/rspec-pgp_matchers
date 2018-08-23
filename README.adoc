@@ -86,6 +86,28 @@ expect(encrypted).to be_a_pgp_encrypted_message.encrypted_for(recipient1_uid, re
 expect(encrypted).to be_a_pgp_encrypted_message.encrypted_for(someones_uid)
 ----
 
+=== Running arbitrary GnuPG commands
+
+An `RSpec::PGPMatchers::GPGRunner` module can be used to run arbitrary GnuPG
+commands:
+
+[source,ruby]
+----
+RSpec::PGPMatchers::GPGRunner.run_command("--decrypt PATH_TO_FILE")
+RSpec::PGPMatchers::GPGRunner.run_command("--list-keys")
+----
+
+Also, convenient helpers are defined for two common commands:
+
+[source,ruby]
+----
+RSpec::PGPMatchers::GPGRunner.run_decrypt("encrypted_string")
+RSpec::PGPMatchers::GPGRunner.run_verify("cleartext", "signature_string")
+----
+
+In all above cases, a triple consisting of captured standard output, captured
+standard error, and `Process::Status` instance is returned.
+
 == Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
