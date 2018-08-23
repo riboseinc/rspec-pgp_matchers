@@ -7,6 +7,10 @@ require "tempfile"
 module RSpec
   module PGPMatchers
     module GPGMatcherHelper
+      extend Forwardable
+
+      def_delegators :"RSpec::PGPMatchers::GPGRunner", :run_verify, :run_decrypt
+
       def detect_signers(stderr_str)
         rx = /(?<ok>Good|BAD) signature from .*\<(?<email>[^>]+)\>/
 
@@ -46,25 +50,6 @@ module RSpec
         elsif expected_signer && signature[:email] != expected_signer
           msg_wrong_signer(signature[:email])
         end
-      end
-
-      def make_tempfile_containing(file_content)
-        tempfile = Tempfile.new
-        tempfile.write(file_content)
-        tempfile.flush
-      end
-
-      def run_command(gpg_cmd)
-        env = { "LC_ALL" => "C" } # Gettext English locale
-
-        homedir_path = Shellwords.escape(RSpec::PGPMatchers.homedir)
-
-        Open3.capture3(env, <<~SH)
-          gpg \
-          --homedir #{homedir_path} \
-          --no-permission-warning \
-          #{gpg_cmd}
-        SH
       end
     end
   end

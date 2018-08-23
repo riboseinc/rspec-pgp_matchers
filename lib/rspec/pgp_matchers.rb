@@ -3,6 +3,7 @@
 
 require "rspec/pgp_matchers/version"
 require "rspec/pgp_matchers/gpg_matcher_helper"
+require "rspec/pgp_matchers/gpg_runner"
 require "rspec/pgp_matchers/be_a_pgp_encrypted_message"
 require "rspec/pgp_matchers/be_a_valid_pgp_signature_of"
 
