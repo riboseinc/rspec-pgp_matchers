@@ -44,7 +44,7 @@ cache:
 
 before_install:
   - mkdir -p ${DEPS_PREFIX}
-  - pushd ci
+  - pushd ci/gpg
   - >
     [ -d "${GPG_PREFIX}" ] ||
     ./install_gpg_all.sh "${GPG_VERSION}"
