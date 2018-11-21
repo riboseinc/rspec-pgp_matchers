@@ -13,7 +13,6 @@ env:
     - GPG_VERSION="2.2"
 
   global:
-    - DEPS_BUILD_DIR="${TRAVIS_BUILD_DIR}/build"
     - DEPS_PREFIX="${TRAVIS_BUILD_DIR}/opt"
     - GPG_PREFIX="${DEPS_PREFIX}/gpg"
 
@@ -49,7 +48,6 @@ before_install:
     [ -d "${GPG_PREFIX}" ] ||
     ./install_gpg_all.sh
     --suite-version "${GPG_VERSION}"
-    --build-dir "${DEPS_BUILD_DIR}/gpg"
     --configure-opts "${GPG_CONFIGURE_OPTS}"
     --folding-style travis
   - popd
