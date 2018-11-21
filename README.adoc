@@ -123,6 +123,13 @@ number in `version.rb`, and then run `bundle exec rake release`, which
 will create a git tag for the version, push git commits and tags, and
 push the `.gem` file to https://rubygems.org[rubygems.org].
 
+=== Submodules
+
+GnuPG is installed via scripts maintained in a sister repository
+https://github.com/riboseinc/gpg-build-scripts[riboseinc/gpg-build-scripts],
+and included here as a Git submodule.  Learn more about submodules from
+https://blog.github.com/2016-02-01-working-with-submodules/[The GitHub Blog].
+
 == Contributing
 
 Bug reports and pull requests are welcome on GitHub at
