@@ -47,7 +47,8 @@ before_install:
   - pushd ci/gpg
   - >
     [ -d "${GPG_PREFIX}" ] ||
-    ./install_gpg_all.sh "${GPG_VERSION}"
+    ./install_gpg_all.sh
+    --suite-version "${GPG_VERSION}"
     --build-dir "${DEPS_BUILD_DIR}/gpg"
     --configure-opts "${GPG_CONFIGURE_OPTS}"
     --folding-style travis
