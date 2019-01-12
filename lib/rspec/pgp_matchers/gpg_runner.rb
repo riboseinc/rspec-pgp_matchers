@@ -25,6 +25,8 @@ module RSpec
           enc_file = make_tempfile_containing(encrypted_string)
           cmd = gpg_decrypt_command(enc_file)
           run_command(cmd)
+        ensure
+          File.unlink(enc_file.path)
         end
 
         def run_verify(cleartext, signature_string)
@@ -32,12 +34,21 @@ module RSpec
           data_file = make_tempfile_containing(cleartext)
           cmd = gpg_verify_command(sig_file, data_file)
           run_command(cmd)
+        ensure
+          File.unlink(sig_file.path, data_file.path)
         end
 
         private
 
         def make_tempfile_containing(file_content)
-          tempfile = Tempfile.new
+          # Tempfile.new instantiates Tempfile objects, and handles file
+          # deletion in various situations (i.e. object's finalizer), whereas
+          # Tempfile.create instantiates File objects, and leaves file deletion
+          # up to programmer.
+          #
+          # Tempfile's surprise file removals were among causes of race
+          # conditions, so let's go with the create method.
+          tempfile = Tempfile.create("rspec-gpg-runner")
           tempfile.write(file_content)
           tempfile.flush
         end
