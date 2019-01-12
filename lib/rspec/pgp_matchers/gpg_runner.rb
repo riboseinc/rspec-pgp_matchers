@@ -50,7 +50,8 @@ module RSpec
           # conditions, so let's go with the create method.
           tempfile = Tempfile.create("rspec-gpg-runner")
           tempfile.write(file_content)
-          tempfile.flush
+          tempfile.close
+          tempfile
         end
 
         def gpg_decrypt_command(enc_file)
