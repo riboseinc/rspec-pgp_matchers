@@ -48,10 +48,10 @@ module RSpec
           #
           # Tempfile's surprise file removals were among causes of race
           # conditions, so let's go with the create method.
-          tempfile = Tempfile.create("rspec-gpg-runner")
-          tempfile.write(file_content)
-          tempfile.close
-          tempfile
+          file = Tempfile.create("rspec-gpg-runner")
+          file.write(file_content)
+          file.close
+          file
         end
 
         def gpg_decrypt_command(enc_file)
