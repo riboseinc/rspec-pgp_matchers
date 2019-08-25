@@ -1,0 +1,99 @@
+= Working with passphrase-protected keys
+
+It is recommended not to use passphrase-protected keys with this gem.
+Remember, `RSpec::PGPMatchers` are meant for testing, therefore there is
+no security trade-off involved.  Nevertheless, passphrase-protected keys are
+supported as well.  With some hassle, though…
+
+IMPORTANT: This guide was written for GnuPG 2.2.  Other versions may require
+a different set of configuration options.
+
+== Passing the passphrase in gpg.conf
+
+This is the easier option, however it will work only if you use the same
+passphrase for all the keys.
+
+1. Write GnuPG options to a config file located at `<pgp/home/path>/gpg.conf`:
++
+----
+yes
+batch
+no-tty
+use-agent
+pinentry-mode loopback
+passphrase <passphrase>
+----
+
+2. Write GnuPG Agent options to a config file located at
+`<pgp/home/path>/gpg-agent.conf`:
++
+----
+allow-loopback-pinentry
+----
+
+3. If GnuPG Agent was running, reload it to pick the updated configuration:
++
+----
+gpgconf --homedir <pgp/home/path> --reload gpg-agent
+----
+
+== Passphrase presetting
+
+This is the recommended and more comprehensive solution, though also bit more
+complicated.
+
+1. Write GnuPG options to a config file located at `<pgp/home/path>/gpg.conf`:
++
+----
+yes
+batch
+no-tty
+use-agent
+----
+
+2. Write GnuPG Agent options to a config file located at
+`<pgp/home/path>/gpg-agent.conf`:
++
+----
+allow-preset-passphrase
+----
+
+3. If GnuPG Agent was running, reload it to pick the updated configuration:
++
+----
+gpgconf --homedir <pgp/home/path> --reload gpg-agent
+----
+
+4. Obtain keygrips of password-protected keys you want to use:
++
+----
+gpg --homedir <pgp/home/path> --list-keys --with-keygrip
+----
++
+Note that sometimes you will need a subkey's keygrip rather than primary key's
+one.  Subkeys are typically used for message encryption, but can be used for
+signing as well.
+
+5. Preset passwords for keys:
++
+----
+gpg-preset-passphrase --homedir <pgp/home/path> --preset --passphrase <passphrase> <keygrip>
+----
++
+or (will read passphrase from standard input):
++
+----
+gpg-preset-passphrase --homedir <pgp/home/path> --preset <keygrip>
+----
++
+Note that `gpg-preset-passphrase` is not in `PATH` on some systems.
+For instance, when GnuPG is installed on MacOS via Homebrew, it is located at
+`/usr/local/opt/gnupg/libexec`, which is not in `PATH` by default.
+
+== Resources
+
+* The GNU Privacy Guard Manual:
+** https://gnupg.org/documentation/manuals/gnupg/GPG-Options.html#GPG-Options[GPG options]
+** https://gnupg.org/documentation/manuals/gnupg/Agent-Options.html#Agent-Options[GPG Agent options]
+** https://www.gnupg.org/documentation/manuals/gnupg/gpg_002dpreset_002dpassphrase.html#gpg_002dpreset_002dpassphrase[GPG Preset Passphrase tool]
+* "link:https://wincent.com/wiki/Using_gpg-agent_on_OS_X[Using gpg-agent on OS X]" on wincent.com -- main source of inspiration for above writing
