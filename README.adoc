@@ -111,6 +111,12 @@ RSpec::PGPMatchers::GPGRunner.run_verify("cleartext", "signature_string")
 In all above cases, a triple consisting of captured standard output, captured
 standard error, and `Process::Status` instance is returned.
 
+=== Working with passphrase-protected keys
+
+Consider using unprotected keys in your tests.  It will save you a lot of
+hassle.  However, passphrase-protected keys are also supported.  See
+`<<PROTECTED_KEYS.adoc#,PROTECTED_KEYS.adoc>>` for details.
+
 == Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
