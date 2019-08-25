@@ -1,5 +1,7 @@
 = RSpec::PGPMatchers
 
+ifdef::env-yard[:relfileprefix: file.]
+
 image:https://img.shields.io/gem/v/rspec-pgp_matchers.svg[
 	Gem Version, link="https://rubygems.org/gems/rspec-pgp_matchers"]
 image:https://img.shields.io/travis/riboseinc/rspec-pgp_matchers/master.svg[
