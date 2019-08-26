@@ -29,6 +29,12 @@ RSpec.describe RSpec::PGPMatchers::GPGRunner do
       expect(retval[1]).to be_a(String)
       expect(retval[2]).to be_a(Process::Status) & be_success
     end
+
+    it "calls a GnuPG executable specified by RSpec::PGPMatchers.gpg_path" do
+      allow(RSpec::PGPMatchers).to receive(:gpg_path).and_return("path/to/gpg")
+      allow(Open3).to receive(:capture3).with(anything, %r[^path/to/gpg])
+      subject.("--some-command")
+    end
   end
 
   describe "#run_decrypt" do
