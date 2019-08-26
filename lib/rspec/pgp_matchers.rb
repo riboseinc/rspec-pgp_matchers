@@ -9,7 +9,10 @@ require "rspec/pgp_matchers/be_a_valid_pgp_signature_of"
 
 module RSpec
   module PGPMatchers
+    @gpg_path = "gpg"
+
     class << self
+      attr_accessor :gpg_path
       attr_accessor :homedir
     end
     # Your code goes here...
