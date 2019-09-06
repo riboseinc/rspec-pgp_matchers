@@ -35,6 +35,13 @@ RSpec.describe RSpec::PGPMatchers::GPGRunner do
       allow(Open3).to receive(:capture3).with(anything, %r[^path/to/gpg])
       subject.("--some-command")
     end
+
+    it "calls a GnuPG executable specified by RSpec::PGPMatchers.homedir" do
+      allow(RSpec::PGPMatchers).to receive(:homedir).and_return("path/to/home")
+      allow(Open3).to receive(:capture3).
+        with(anything, %r[--homedir path/to/home])
+      subject.("--some-command")
+    end
   end
 
   describe "#run_decrypt" do
