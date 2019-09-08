@@ -6,8 +6,20 @@ require "tempfile"
 
 module RSpec
   module PGPMatchers
+    # A helper module for executing GnuPG commands.
     module GPGRunner
       class << self
+        # Executes arbitrary GnuPG command.
+        #
+        # @param gpg_cmd [String] command to run
+        # @return [Array] tuple +[stdout, stderr, status]+
+        #   like in stdlib's {Open3.capture3}
+        #
+        # @example
+        #   # Will list all GnuPG keys
+        #   run_command("--list-keys")
+        #   # Will list keys and their keygrips
+        #   run_command("--list-keys --with-keygrip")
         def run_command(gpg_cmd)
           env = { "LC_ALL" => "C" } # Gettext English locale
 
@@ -22,6 +34,11 @@ module RSpec
           SH
         end
 
+        # Decrypts a message.
+        #
+        # @param encrypted_string [String] encrypted message
+        # @return [Array] tuple +[stdout, stderr, status]+
+        #   like in stdlib's {Open3.capture3}
         def run_decrypt(encrypted_string)
           enc_file = make_tempfile_containing(encrypted_string)
           cmd = gpg_decrypt_command(enc_file)
@@ -30,6 +47,12 @@ module RSpec
           File.unlink(enc_file.path)
         end
 
+        # Verifies a signature.
+        #
+        # @param cleartext [String] message in clear text
+        # @param signature_string [String] signature
+        # @return [Array] tuple +[stdout, stderr, status]+
+        #   like in stdlib's {Open3.capture3}
         def run_verify(cleartext, signature_string)
           sig_file = make_tempfile_containing(signature_string)
           data_file = make_tempfile_containing(cleartext)

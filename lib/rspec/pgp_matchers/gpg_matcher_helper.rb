@@ -6,6 +6,10 @@ require "tempfile"
 
 module RSpec
   module PGPMatchers
+    # A collection of utility methods to be included in matchers.  Mostly for
+    # extracting information from GnuPG output.
+    #
+    # @api private
     module GPGMatcherHelper
       extend Forwardable
 
