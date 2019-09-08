@@ -1,6 +1,5 @@
 dist: trusty
 language: ruby
-sudo: true
 
 rvm:
   - "2.3"
