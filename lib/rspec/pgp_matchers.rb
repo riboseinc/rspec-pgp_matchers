@@ -15,6 +15,5 @@ module RSpec
       attr_accessor :gpg_executable
       attr_accessor :homedir
     end
-    # Your code goes here...
   end
 end
