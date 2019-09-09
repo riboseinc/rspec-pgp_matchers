@@ -11,11 +11,11 @@ module RSpec
         def run_command(gpg_cmd)
           env = { "LC_ALL" => "C" } # Gettext English locale
 
-          gpg_path = Shellwords.escape(RSpec::PGPMatchers.gpg_path)
+          gpg_executable = Shellwords.escape(RSpec::PGPMatchers.gpg_executable)
           homedir_path = Shellwords.escape(RSpec::PGPMatchers.homedir)
 
           Open3.capture3(env, <<~SH)
-            #{gpg_path} \
+            #{gpg_executable} \
             --homedir #{homedir_path} \
             --no-permission-warning \
             #{gpg_cmd}
