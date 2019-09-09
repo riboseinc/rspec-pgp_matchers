@@ -31,7 +31,8 @@ RSpec.describe RSpec::PGPMatchers::GPGRunner do
     end
 
     it "calls the executable specified by RSpec::PGPMatchers.gpg_executable" do
-      allow(RSpec::PGPMatchers).to receive(:gpg_executable).and_return("path/to/gpg")
+      allow(RSpec::PGPMatchers).to receive(:gpg_executable).
+        and_return("path/to/gpg")
       allow(Open3).to receive(:capture3).with(anything, %r[^path/to/gpg])
       subject.("--some-command")
     end
