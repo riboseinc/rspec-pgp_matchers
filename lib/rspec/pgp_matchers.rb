@@ -1,6 +1,7 @@
 # (c) Copyright 2018 Ribose Inc.
 #
 
+require "rspec/expectations"
 require "rspec/pgp_matchers/version"
 require "rspec/pgp_matchers/gpg_matcher_helper"
 require "rspec/pgp_matchers/gpg_runner"
