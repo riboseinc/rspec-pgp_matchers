@@ -119,6 +119,21 @@ Consider using unprotected keys in your tests.  It will save you a lot of
 hassle.  However, passphrase-protected keys are also supported.  See
 `<<PROTECTED_KEYS.adoc#,PROTECTED_KEYS.adoc>>` for details.
 
+=== Unusual GnuPG executable name
+
+By default, this gem assumes that GnuPG executable is named `gpg`, and that
+it is in `$PATH`.  This behaviour can be changed, for example:
+
+[source,ruby]
+----
+RSpec::PGPMatchers.gpg_executable = "gpg2" # different executable name
+RSpec::PGPMatchers.gpg_executable = "/opt/gpg/bin/gpg" # absolute path
+RSpec::PGPMatchers.gpg_executable = "../gpg/bin/gpg" # relative path
+----
+
+Avoid hardcoding values.  Usually, setting a proper `$PATH` environment variable
+is better than assigning an absolute path to `gpg_executable` attribute.
+
 == Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
