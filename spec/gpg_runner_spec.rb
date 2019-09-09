@@ -30,13 +30,13 @@ RSpec.describe RSpec::PGPMatchers::GPGRunner do
       expect(retval[2]).to be_a(Process::Status) & be_success
     end
 
-    it "calls a GnuPG executable specified by RSpec::PGPMatchers.gpg_executable" do
+    it "calls the executable specified by RSpec::PGPMatchers.gpg_executable" do
       allow(RSpec::PGPMatchers).to receive(:gpg_executable).and_return("path/to/gpg")
       allow(Open3).to receive(:capture3).with(anything, %r[^path/to/gpg])
       subject.("--some-command")
     end
 
-    it "calls a GnuPG executable specified by RSpec::PGPMatchers.homedir" do
+    it "calls the executable specified by RSpec::PGPMatchers.homedir" do
       allow(RSpec::PGPMatchers).to receive(:homedir).and_return("path/to/home")
       allow(Open3).to receive(:capture3).
         with(anything, %r[--homedir path/to/home])
