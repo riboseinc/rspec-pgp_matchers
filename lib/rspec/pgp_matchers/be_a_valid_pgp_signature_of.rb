@@ -32,7 +32,7 @@ RSpec::Matchers.define :be_a_valid_pgp_signature_of do |text|
   chain :signed_by, :expected_signer
 
   failure_message do
-    err
+      err
   end
 
   # Returns +nil+ if first signature is valid, or an error message otherwise.
@@ -48,13 +48,20 @@ RSpec::Matchers.define :be_a_valid_pgp_signature_of do |text|
   end
 
   def analyse_verify_output(_stdout_str, stderr_str, status)
-    {
+    return {
       well_formed_pgp_data: (status.exitstatus != 2),
       signature: detect_signers(stderr_str).first,
     }
+
+    raise
+
   end
 
+
   def match_constraints(signature:, **_ignored)
+    for i in [1, 2, 3]
+      puts i
+    end
     match_signature(signature)
   end
 
